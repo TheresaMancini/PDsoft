@@ -1,11 +1,10 @@
+
 from tkinter import *
 from tkinter import scrolledtext
 from tkinter import messagebox
 from tkinter import ttk
 import psycopg2
 from tkinter.ttk import *
-
-
 
 ###Classe Conexão
 ########################################################################################################
@@ -20,8 +19,9 @@ class Conexao(object):
             cur.close();
             self._db.commit()
        except:
-           return False;
-       return True;
+       	   print("Conexão não realizada")
+           return False
+       return True
     def consultar(self, sql):
        rs=None
        try:
@@ -40,8 +40,9 @@ class Conexao(object):
        self._db.close()
 
 ##################################################################################################################################
-class Membro:
-	nome = 
+#class Membro:
+#   nome =
+     
 
 ########################################################################################################################
 
@@ -153,11 +154,12 @@ nascimento = Entry(tab3,width=40)
 nascimento.grid(column=1, row=6)
 
 
-def clicked():
+def clicked_cadastroM():
+
 
     messagebox.showinfo('Cadastro', 'Cadastro Realizado')
 
-btn = Button(tab3,text='Cadastrar', command=clicked)
+btn = Button(tab3,text='Cadastrar', command=clicked_cadastroM)
 btn. grid(column = 0, row = 7, columnspan = 3, rowspan = 1, sticky=N+S+E+W)
 
 
@@ -188,21 +190,17 @@ combo.current(0) #set the selected item
 
 combo.grid(column=1, row=1)
 
-def clicked():
+def clicked_cadastroP():
+	
 
     messagebox.showinfo('Cadastro', 'Cadastro Realizado')
 
-btn = Button(tab4,text='Cadastrar', command=clicked)
+btn = Button(tab4,text='Cadastrar', command=clicked_cadastroP)
 btn.grid(column = 0, row = 2, columnspan = 2, rowspan = 1, sticky=N+S+E+W)
 
 
 tab_control.pack(expand=1, fill='both')
 
-
-try:
-    conn=psycopg2.connect("dbname='dbInclude' user='postgres' password='teste'")
-except:
-    print ("I am unable to connect to the database.")
 
 window.mainloop()
 
