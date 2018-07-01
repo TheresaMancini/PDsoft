@@ -2,10 +2,48 @@ from tkinter import *
 from tkinter import scrolledtext
 from tkinter import messagebox
 from tkinter import ttk
-
+import psycopg2
 from tkinter.ttk import *
 
 
+
+###Classe Conexão
+########################################################################################################
+class Conexao(object):
+    _db=None    
+    def __init__(self, mhost, db, usr, pwd):
+     self._db = psycopg2.connect(host='', database=dbInclude, user=postgres,  password=teste)
+    def manipular(self, sql):
+       try:
+            cur=self._db.cursor()
+            cur.execute(sql)
+            cur.close();
+            self._db.commit()
+       except:
+           return False;
+       return True;
+    def consultar(self, sql):
+       rs=None
+       try:
+           cur=self._db.cursor()
+           cur.execute(sql)
+           rs=cur.fetchall();
+       except:
+           return None
+       return rs
+    def proximaPK(self, tabela, chave):
+       sql='select max('+chave+') from '+tabela
+       rs = self.consultar(sql)
+       pk = rs[0][0]  
+       return pk+1
+    def fechar(self):
+       self._db.close()
+
+##################################################################################################################################
+class Membro:
+	nome = 
+
+########################################################################################################################
 
 window = Tk()
 
@@ -160,6 +198,11 @@ btn.grid(column = 0, row = 2, columnspan = 2, rowspan = 1, sticky=N+S+E+W)
 
 tab_control.pack(expand=1, fill='both')
 
+
+try:
+    conn=psycopg2.connect("dbname='dbInclude' user='postgres' password='teste'")
+except:
+    print ("I am unable to connect to the database.")
 
 window.mainloop()
 
